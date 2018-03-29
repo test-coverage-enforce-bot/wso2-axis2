@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!--
   ~ Licensed to the Apache Software Foundation (ASF) under one
   ~ or more contributor license agreements. See the NOTICE file
@@ -17,9 +16,7 @@
   ~ KIND, either express or implied. See the License for the
   ~ specific language governing permissions and limitations
   ~ under the License.
-  -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  --><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.axis2</groupId>
@@ -124,29 +121,29 @@
                         <phase>test</phase>
                         <configuration>
                             <tasks unless="maven.test.skip">
-                                <taskdef name="java2wsdl" classname="org.apache.axis2.tool.ant.Java2WSDLTask">
+                                <taskdef classname="org.apache.axis2.tool.ant.Java2WSDLTask" name="java2wsdl">
                                     <classpath>
-                                        <path refid="maven.test.classpath" />
+                                        <path refid="maven.test.classpath"/>
                                     </classpath>
                                 </taskdef>
                                 
-                                <echo message="Generating extraclasses*.wsdl" />
+                                <echo message="Generating extraclasses*.wsdl"/>
                                 
-                                <java2wsdl className="test.Service" outputLocation="${project.build.directory}/java2wsdl" outputFileName="extraclasses1.wsdl">
-                                    <extraclass name="test.ExtraClass1" />
-                                    <extraclass name="test.ExtraClass2" />
+                                <java2wsdl className="test.Service" outputFileName="extraclasses1.wsdl" outputLocation="${project.build.directory}/java2wsdl">
+                                    <extraclass name="test.ExtraClass1"/>
+                                    <extraclass name="test.ExtraClass2"/>
                                 </java2wsdl>
                                 
-                                <java2wsdl className="test.Service" outputLocation="${project.build.directory}/java2wsdl" outputFileName="extraclasses2.wsdl" extraClasses="test.ExtraClass1,test.ExtraClass2" />
+                                <java2wsdl className="test.Service" extraClasses="test.ExtraClass1,test.ExtraClass2" outputFileName="extraclasses2.wsdl" outputLocation="${project.build.directory}/java2wsdl"/>
                                 
-                                <java2wsdl className="test.Service" outputLocation="${project.build.directory}/java2wsdl" outputFileName="extraclasses3.wsdl" extraClasses="test.ExtraClass1">
-                                    <extraclass name="test.ExtraClass2" />
+                                <java2wsdl className="test.Service" extraClasses="test.ExtraClass1" outputFileName="extraclasses3.wsdl" outputLocation="${project.build.directory}/java2wsdl">
+                                    <extraclass name="test.ExtraClass2"/>
                                 </java2wsdl>
                                 
-                                <echo message="Generating mappings.wsdl" />
+                                <echo message="Generating mappings.wsdl"/>
                                 
-                                <java2wsdl className="test.Service" outputLocation="${project.build.directory}/java2wsdl" outputFileName="mappings.wsdl" schemaTargetNamespace="http://www.example.org/schema/test-service">
-                                    <mapping package="test" namespace="http://www.example.org/schema/test" />
+                                <java2wsdl className="test.Service" outputFileName="mappings.wsdl" outputLocation="${project.build.directory}/java2wsdl" schemaTargetNamespace="http://www.example.org/schema/test-service">
+                                    <mapping namespace="http://www.example.org/schema/test" package="test"/>
                                 </java2wsdl>
                             </tasks>
                         </configuration>
@@ -195,6 +192,14 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+        <plugin>
+	<groupId>org.jacoco</groupId>
+	<artifactId>jacoco-maven-plugin</artifactId>
+</plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-surefire-plugin</artifactId>
+</plugin>
+    </plugins>
     </build>
 </project>
